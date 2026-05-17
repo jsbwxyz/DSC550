@@ -1,0 +1,1039 @@
+
+Mar 23
+
+1:25 PM
+
+Hi Professor Hua, 
+
+
+Thank you for the feedback on assignment for Week 1. I'd like to ask about the correct solution for two exercises to improve future submissions. On p. 7, for top publishers, would we just use the .nlargest(5) solution from p4?
+
+
+video_games_df.groupby('Publisher')['Global_Sales'].sum().nlargest(5)
+
+
+and on p. 8, I've attached an image below showing the row level display. Would this had been the correct solution?
+
+
+Screenshot 2026-03-23 132414.png
+
+Thank you for allowing me to resubmit this time. I'll be sure to read the submission criteria and exercise instructions more carefully in the future.
+
+
+- Jeremy
+Andrew Hua
+
+3:59 PM
+
+Hi Jeremy,
+
+Thank you for your message.
+
+Yes, for the publisher question, that approach would be correct: group by Publisher, sum Global_Sales, and then take the top five with .nlargest(5).
+
+For the North America percentage column, showing the result at the row level is the right format. However, the percentage should be calculated separately for each game using that row’s NA_Sales and Global_Sales. In your screenshot, the same value appears in every row, which suggests one overall percentage was applied to all rows rather than a row-by-row calculation.
+
+So, for that part: the display format is right, but the calculation itself would need to be row-specific.
+
+Thank you for following up so carefully. That is exactly the right way to improve for future assignments.
+
+Best,
+
+Professor Hua
+
+7:46 PM
+
+Got it - just had to drop that .sum() at the end.
+
+screen.png
+
+
+Thanks again,
+
+Jeremy
+Andrew Hua
+
+8:07 PM
+
+Hi Jeremy,
+
+Yes, exactly. Removing the extra .sum() makes it a row-level calculation, which is what the assignment was asking for. Your updated result looks correct for that step.
+
+Thank you for following up and verifying it carefully.
+
+Best,
+
+Prof. Hua
+Apr 6
+
+7:30 PM
+
+Hi Professor,
+
+
+In your most recent feedback on the 3.2 Exercise:
+
+State clearly that 68.52% > 50%, so TextBlob beats random guessing.
+
+
+In statistics, will random guessing always be 50%?
+
+
+Also by "less speculative" do you mean flowing more like a point I am trying to prove rather than explaining what is being done?
+
+
+Thanks,
+
+Jeremy
+Andrew Hua
+
+8:08 PM
+
+Hi Jeremy,
+
+
+Good question. No, random guessing is not always 50%. In this assignment, it is approximately 50% because there are two classes and the dataset is evenly balanced between positive and negative reviews. If the classes were imbalanced, the random baseline would be different.
+
+
+Yes, by “less speculative,” I mean I would like your explanation to be more direct and evidence-based. Focus on what the output shows and what conclusion follows from it, rather than on possibilities that are not supported by the results.
+
+
+Thank you for asking.
+
+
+Best,
+
+Prof. Hua
+
+9:31 PM
+
+Hi Professor,
+
+
+That makes sense and when it's imbalanced is when we apply methods like RandomForest, Up/Downsampling to get it to as close to 50% as we can?
+
+
+On the second point, okay -- it's more about "what does this mean for the data". It looks like my notebooks have been heavily focused on the methods but not so much the material.
+
+
+I've been trying to apply what we review in these weeks to what will be my final project and a small mining startup for the capstone project if possible. It uses the RoBERTa model as the main sentiment analysis method for long text data. Do you think it is more efficient to use TextBlob on blog replies, movie/product review data and leave the heavier models to the longer documents like blog posts, news articles and essays?
+
+
+Thanks,
+
+Jeremy
+Andrew Hua
+
+10:41 PM
+
+Hi Jeremy,
+
+
+You are thinking in the right direction, but one important clarification: RandomForest is a modeling method, not a class-balancing method. Upsampling, downsampling, SMOTE, and class weights are examples of ways to address imbalance when needed. Also, the goal is not always to force classes to 50/50, but to use an approach that is appropriate for the actual data and problem.
+
+
+Yes, that is exactly right on the second point. I would like to see a bit more interpretation of what the results mean, not just the steps used to produce them.
+
+
+For your project, that sounds like a reasonable direction. In general, lighter tools such as TextBlob can work as a baseline for shorter, simpler text, while transformer-based models such as RoBERTa are often better for longer or more nuanced text. The main tradeoff is usually speed and complexity versus performance. For your final project, using a simpler baseline alongside a stronger model would be a good way to compare approaches.
+
+
+Best,
+
+Prof. Hua
+Apr 8
+
+9:09 PM
+
+Hi Professor,
+
+
+Ok - and I got a sense of how we use RandomForest reading Chapter 11 today. It seems like the model we use to compare against when evaluating binary classifiers. Still trying to wrap my head around this.
+
+
+When interpreting how to apply what models to where, is there a map out for making these decisions?
+
+
+This is how I envision the tree being:
+
+
+               Is the target quantitative or qualitative?
+
+
+        qualitative?                                   quantitative?
+
+                | - use classification                     | - use regression
+
+                |    models                                     |      models
+
+            _______________________________________________
+
+                          Is the data binary or multiclass?
+
+                  |                                                                        |
+
+               binary?                                                            multi?
+
+                  |                                                                        |
+
+                   L--> use accuracy w/ precision/recall         L- -> average scores, then precision/recall
+
+
+Something like this to refer to when deciding on how to prepare a "model-pipeline", I guess I would call it.
+
+
+Thanks,
+
+Jeremy
+
+     
+
+
+Andrew Hua
+
+10:03 PM
+
+Hi Jeremy,
+
+
+You are thinking about this the right way. A decision tree like that is a useful starting framework.
+
+
+One clarification: RandomForest is not the default model you compare all binary classifiers against. It is one classification method among many. The comparison model depends on the problem. Often, you start with a simple baseline first, then test more advanced models.
+
+
+A practical map is:
+
+
+1. Define the target
+
+
+* Quantitative → regression
+
+* Qualitative → classification
+
+
+2. Check the class structure
+
+
+* Binary
+
+* Multiclass
+
+* Imbalanced or balanced
+
+
+3. Match evaluation to the problem
+
+
+* Classification: accuracy, precision, recall, F1, ROC-AUC
+
+* Regression: RMSE, MAE, R²
+
+
+4. Start simple, then increase complexity
+
+
+* Logistic regression / decision tree / Naive Bayes first
+
+* Then RandomForest, boosting, if needed
+
+
+So yes, your pipeline idea is solid. It just needs a few more branches for class balance, text type, and evaluation metric.
+
+
+Best,
+
+Prof. Hua.
+Apr 9
+
+4:20 PM
+
+Got it. What baseline classification method we use depends on the situation.
+
+
+Thank you for the map, too. A solid model pipeline for how data is generated, from extraction to prediction, is the premier feature of what I am planning for the final project.
+
+
+Thanks,
+
+Jeremy
+Andrew Hua
+
+4:39 PM
+
+Hi Jeremy,
+
+
+Exactly right. The baseline depends on the problem, the data, and what you are trying to predict.
+
+
+Best,
+
+Prof. Hua
+
+6:17 PM
+
+One more question, sorry  - I just finished chapter 12 today. Just to clarify the process of Model Selection, are we essentially calculating the hyper-parameters of each model we want to test side by side, then based on the results choose the one that best describes the data? I'm going to need to do another read to understand how to read the hyper-parameters in order to choose a model. It's interesting that there is an evaluation for model selection -- every test has its own test in statistics.
+
+
+Thanks,
+
+Jeremy
+Andrew Hua
+
+7:12 PM
+
+Hi Jeremy,
+
+
+You are very close. Model selection is not so much “calculating the hyper-parameters” as it is **choosing candidate models, tuning their hyper-parameters, and comparing their performance** using a validation approach such as cross-validation.
+
+
+A good way to think about it is:
+
+
+1. Choose several reasonable candidate models
+
+2. Tune their hyper-parameters on the training data
+
+3. Compare them using the metric that fits the problem
+
+4. Select the model that performs best **and** makes sense for the data
+
+5. Evaluate that final choice on the holdout test set
+
+
+Also, hyper-parameters do not describe the data itself; they control how the model learns from the data.
+
+
+You are asking the right questions.
+
+
+Best,
+
+Prof. Hua
+Apr 10
+
+12:53 PM
+
+Okay, I think I understand now. Hyperparameters configure how a model learns, like you said, and parameters configure what a model learns... and the process of the former is Hyperparameter tuning and the latter, just regular parameter tuning.
+
+
+Also, back in Chapter 6.8 we reviewed Named Entity Recognition using spaCy. At the end of the section there was a note about training a custom named-entity recognition model, which was out of the scope of the book. For my project I would like to train a model on hundreds of articles related to the Home Decor/Furniture product category to tell the NER process what to look for within the entity types it is choosing. The idea is to have the NER identity entities in that category (e.g., the who in looking for a "PERSON" entity) -- then to have TextBlob (for binary) and RoBERTa (for multiclass) perform sentiment analysis on entities and keywords extracted.
+
+
+Am I thinking about that the right way?
+
+
+P.S. The more I read the textbook the more this pipeline starts to make sense. What I'm thinking of doing is keeping a "pipeline" directory with the different parts of the model pipeline to order them.
+
+
+Ex.
+
+|
+
+|__/ pipeline
+
+     |- keyword_extraction.py ( word tokenizer, stopwords)
+
+     |- sentiment_analysis.py (NER, then TextBlob or RoBERTa)
+
+     |- model_evaluation.py (including accuracy, recall, precision)
+
+     |- evaluation_check.py (cross-validation)
+
+
+Thanks,
+
+Jeremy
+Andrew Hua
+
+2:27 PM
+
+Hi Jeremy,
+
+Yes, you are thinking about it in the right direction. One small correction: model parameters are usually learned during training, while hyperparameters are set and tuned by you before or around training.
+
+Your project idea is reasonable. A practical approach would be:
+
+    start with spaCy’s pretrained NER first
+    add rule-based patterns or an EntityRuler for home decor/furniture terms
+    only move to a custom NER model if the pretrained/rule-based approach is not enough
+    then run sentiment analysis on the extracted entities or nearby text spans
+
+Your pipeline folder idea is also strong. I would separate NER/entity extraction from sentiment analysis into different modules, since they are different tasks with different evaluation methods.
+
+The overall structure you outlined is solid and is becoming much more focused.
+
+Best,
+
+Prof. Hua
+Apr 11
+
+9:13 AM
+
+Hi Professor,
+
+
+I was actually thinking of separating them that way too. I’ll make sure to do that this weekend.
+
+
+Also thank you for the pipeline structure. It’s SO exciting seeing it all come into focus! I’ve been losing sleep trying to think of the best way to set it up.
+
+
+Switching topics (sort of).
+
+
+When we talk about Linear Regression, this is primarily for quantitative data. So that means for the project, if I were also to incorporate CPI inflation data for predictions on the pricing of home decor/furniture products, that would use Linear Regression rather than classifiers like NER for the prediction of popular items/entity sentiment.
+
+
+I am reading through Ch 13 right now.
+
+
+As always, thank you.
+
+
+Jeremy
+Andrew Hua
+
+12:02 PM
+
+Hi Jeremy,
+
+Yes, that is the right general idea. If your target is a numeric value such as product price, then you would use a regression approach rather than a classifier.
+
+So in your example:
+
+    Predicting price from CPI and other numeric features would fit linear regression as a starting point.
+    Identifying entities is an NLP extraction task.
+    Predicting sentiment or popularity categories would be a classification task.
+
+One note: if you are modeling prices over time, you may eventually find that a multiple regression or even a time-series approach fits better than simple linear regression. But linear regression is a very reasonable baseline.
+
+You are connecting the pieces well.
+
+
+Best,
+
+Prof. Hua
+Apr 13
+
+11:41 AM
+
+Hi Professor,
+
+
+Just following up again after the recent assignment feedback. I included only the 4 features because they were the most correlated according to the matrix. However after training on all of the features (except the target mpg, right) I see that the model predictions are that much more accurate with the additional features.
+
+
+Honestly I thought including only highly-correlated features would improve the accuracy would improve accuracy, but it had the opposite affect.
+
+
+Is this because, when making predictions, the model must consider what is and is not highly or weakly correlated, in order to make accurate predictions?
+
+
+Thanks,
+
+Jeremy
+Andrew Hua
+
+6:33 PM
+
+Hi Jeremy,
+
+That can definitely happen. A feature may have only a weak individual correlation with mpg, but still improve predictions when combined with other features in the model.
+
+So the issue is not that the model must “consider weak correlation” in a simple sense. It is more that prediction depends on the joint information across variables, not just the strongest one-by-one correlations.
+
+A few points to keep in mind:
+
+    correlation matrices are useful for exploration, but they are not the same as feature selection
+    some variables add predictive value only when used together
+    removing too many features can reduce useful signal
+
+So your result makes sense. For prediction, it is usually better to compare models empirically rather than rely only on correlation strength.
+
+Best,
+
+Prof. Hua
+
+7:07 PM
+
+Hi Professor,
+
+
+Okay, got it. It's less about each individual correlation and more about how the model compares them when making predictions. Is the end of chapter 11, Visualizing the Learning Curve how we visualize the improvement from the training data? This is very cool to be able to do.
+
+
+Thanks,
+
+Jeremy
+Andrew Hua
+
+7:14 PM
+
+Hi Jeremy,
+
+
+Yes, that is the general idea. A learning curve helps you visualize how model performance changes as the amount of training data increases. It is useful for seeing whether the model improves with more data and for diagnosing issues such as overfitting or underfitting.
+
+
+It is a very useful tool, and you are making the right connection.
+
+
+Best,
+
+Prof. Hua
+
+8:09 PM
+
+Hi Professor,
+
+
+Neat. This might be my favorite part of this process. Just to share I've attached the learning curve on the assignment data. Does it look a bit zoomed out? I copied the setting exactly from the textbook example except for the r2 score setting.
+
+
+
+mpg_learning.jpg
+
+
+Thanks,
+
+
+Jeremy
+Andrew Hua
+
+9:25 PM
+
+Hi Jeremy,
+
+
+Yes, a bit. The early negative R² values are stretching the y-axis, so the later part looks compressed. The plot itself looks fine. Tightening the y-axis range would make it easier to read.
+
+
+Best,
+
+Prof. Hua
+Apr 15
+
+5:30 PM
+
+Hi Professor,
+
+
+Got it. It does look a lot better. By the way, last week I went to High Point, NJ to collect aircraft data for a notebook. I wanted to predict trajectory (and next Isolation Forest for anomaly detection).
+
+
+https://github.com/jsbwxyz/wigglroom-research/blob/main/HighPoint-NJ/041026/HighPoint_Analysis_041026.ipynb
+
+
+Something about actively going out in the world to collect data, then bringing it back to analyze makes me happy. I'd love to have a job like that today, but I'm afraid we have drones to go and collect data from places that is too risky for humans.
+
+
+Anyway I tried to model this notebook around the assignment exercises. Even though I tried to make the flow of it reproducible, it could benefit from a good conclusion summarizing the formulas used. Conclusions really don't need to always be about the output I suppose.
+
+
+Thanks,
+
+Jeremy
+Andrew Hua
+
+6:59 PM
+
+Hi Jeremy,
+
+
+That sounds like a strong project direction. Collecting the data yourself and then bringing it back for analysis is excellent practice, and it gives the work much more meaning. It also shows good initiative.
+
+
+Your idea of modeling the notebook after the assignment flow makes sense. And yes, a conclusion does not have to focus only on the output. It can also briefly summarize the purpose, methods, key formulas or models used, and what the analysis is setting up next. For a notebook like this, that would be very appropriate.
+
+
+The trajectory prediction and anomaly detection direction sounds especially interesting.
+
+
+Best,
+
+Prof. Hua
+Apr 21
+
+8:22 PM
+
+Hi Professor,
+
+
+Can "sentiment" be a target variable for the term project? (positive, neutral, negative) I'd like to either predict the sentiment of a keyword or entity, or the number or mentions it will have in x number of articles within a specific span of time.
+
+
+Thanks,
+
+Jeremy
+Andrew Hua
+
+10:41 PM
+
+Hi Jeremy,
+
+
+Yes, sentiment can be a target variable for the term project, as long as you define the problem clearly and have an appropriate dataset to support it. A target such as positive, neutral, and negative would be a classification problem.
+
+
+Your other idea—predicting the number of mentions over a given time span—could also work, but that would be a different type of problem, more like regression or forecasting. Either option is acceptable if you clearly explain the business problem, the target variable, the data source, and why the model would be useful.
+
+
+Make sure your project scope is specific enough to be manageable.
+
+
+Best,
+
+Prof. Hua
+Apr 22
+
+2:46 PM
+
+Hi Professor,
+
+
+Thank you for the reminder. I'm actually working on it now and in the middle of avoiding expanding the scope too far. Is there a minimum number of sources for this project?
+
+
+I built a bot that scrapes, extracts and cleans keyword and entity data from 3 blog websites related to a product category.
+
+
+It ends up in a database and totals 132 articles right now... but I'd like to find hundreds more. However each different website structure means additional rules for beautifulsoup and selenium. I will be targeting the sentiment of keywords, people and entities within the home decor/furniture product category.
+
+
+The business problem is small e-commerce sellers and product manufacturers struggle to know what is trending, what will be trending and how much people are willing to pay for it. Providing sentiment analysis and prediction data on keywords and enities from hundreds of articles across the web related to the product category is the solution.
+
+
+Does that sounds OK for this project?
+
+
+Thank you,
+
+Jeremy
+Andrew Hua
+
+5:01 PM
+
+Hi Jeremy,
+
+
+Yes, this sounds like a workable project, and the business problem is appropriate.
+
+
+Based on the project instructions, there is not a stated minimum number of sources. What matters more is that you have enough relevant data to support your analysis and that the scope stays manageable. For this stage, 3 websites and 132 articles is a reasonable starting point, especially since you already have a pipeline for scraping, cleaning, and storing the data.
+
+
+Your idea is stronger if you keep the target focused. Predicting sentiment of keywords/entities is more manageable than trying to do sentiment, trend prediction, and price prediction all in one project.
+
+
+Best,
+
+Prof. Hua
+Apr 24
+
+12:14 PM
+
+
+TermProject-Milestone-1.pdf
+
+Hi Professor,
+
+
+I was able to make 6 graphs nice graphs, but they are a couple variations of the same data in 3 different views. Should this satisfy the Milestone 1 requirements? They are on pages 4, 5, 7 and 11 through 14.
+
+
+Thank you,
+
+Jeremy
+
+12:17 PM
+
+What I meant to say was, there are 3 different graphs. Stacked bar chat, horizontal bar chart, and a scatter plot; each with two or three views to explain the data in different ways.
+
+
+Thanks,
+
+Jeremy
+Andrew Hua
+
+3:38 PM
+
+As mentioned in my Welcome message and later via message to all students, please do not enclose any part of your assignments in Blackboard Message or email but submit them via submission link in Blackboard.
+
+
+To be fair to all your classmates, I'm afraid I cannot give you "my feedback" before your submission.
+
+
+Please submit your assignment to the right place.
+
+
+Prof. Hua
+Apr 25
+
+2:09 PM
+
+Okay, my apologies. Thank you for the reminder.
+
+
+Thanks,
+
+Jeremy
+Apr 26
+Andrew Hua
+
+8:09 PM
+
+No worries. Please feel free to let me know if you have questions about assignments/instructions and/or the course.
+
+
+Prof. Hua
+Apr 27
+
+1:23 PM
+
+Hi Professor,
+
+
+Thanks for the most recent feedback. There might be an issue with my project data, but I just want to check with you to be sure.
+
+
+    Clarify which predictors will be available before sentiment is assigned so the model does not learn from RoBERTa-generated outputs.
+
+
+This might be an actual issue with my project... the sentiment data attached used in Milestone 1 already went through RoBERTa. So when I build the model in upcoming Milestones it will indeed just be predicting data based on it's own output.
+
+
+For this to actually work I would have already needed to have organic entity, keyword and sentiment data for it to learn from. Is that correct? I am then beginning to understand why companies pay so much money for labelled data.
+
+
+Thanks,
+
+Jeremy
+Andrew Hua
+
+5:54 PM
+
+Hi Jeremy,
+
+
+You are thinking about this correctly. If the sentiment labels were already generated by RoBERTa, then those labels should be treated as model-generated labels, not ground-truth human labels. That does not necessarily invalidate the project, but it changes how you should frame it.
+
+The key issue is to avoid data leakage. You should not use RoBERTa-generated outputs, such as sentiment or confidence score, as predictors when trying to predict sentiment. Instead, your predictors should come from information available before sentiment is assigned, such as:
+
+
+    entity text
+    keyword text
+    entity type
+    article title or article text features
+    mention count
+    source/domain
+    publication date or time-based features
+
+
+Then the target can still be the sentiment label, but you should clearly state that the labels are weak labels or pseudo-labels generated by RoBERTa. In that case, your model is essentially learning to approximate or operationalize the RoBERTa labeling process for your specific niche, rather than learning from independently verified human sentiment labels.
+
+
+You are also correct that having organic/human-labeled sentiment data would be stronger. That is exactly why high-quality labeled data is expensive: it provides independent ground truth rather than relying on another model’s output.
+
+
+For this course project, you do not need to restart. I would recommend continuing, but revise the framing slightly: acknowledge that RoBERTa-generated sentiment is being used as the target, remove any RoBERTa-derived predictors from the modeling features, and discuss this as a limitation in your write-up. That will make the project methodologically clearer and avoid the leakage concern.
+
+
+Hope this helps.
+
+
+Professor Hua
+
+10:22 PM
+
+Hi Professor,
+
+
+Thanks for thinking this through  - it's good to know I can still continue the project. Then is the purpose of all the new "AI Trainer" positions, where people are paid to rate a computer on what is true and not true, just to build up ground truths? I've been avoiding those as I don't think it is related to data science in the way we are learning in this program - please correct me if I am wrong here.
+
+
+Regarding the project, I think I understand what the plan is. Since we don't have a ground truth for the sentiment data it cannot be used as a predictor variable. The model I will be developing is learning to better utilize RoBERTa to identify entity and keyword sentiments, rather than learning to actually predict the sentiment labels for keywords/entities themselves.
+
+
+So when I perform evaluation I am essentially evaluating how well the model used RoBERTa to predict the output, not how well RoBERTa predicted the output, which would require me having ground truths to tell the model what is true.
+
+
+Thanks,
+
+Jeremy
+Apr 28
+Andrew Hua
+
+12:10 AM
+
+Hi Jeremy,
+
+
+Yes, that is mostly correct.
+
+
+Many “AI Trainer” roles are related to creating or improving ground-truth/reference data, rating outputs, checking factuality, or providing preference data. That work is related to data science in the broader AI/ML pipeline, but it is usually more focused on annotation, evaluation, and data quality than on model development or statistical modeling.
+
+
+For your project, the important distinction is this:
+
+
+You are not evaluating whether RoBERTa’s sentiment labels are objectively correct. Without human-labeled ground truth, you cannot fully assess that.
+
+
+Instead, your model would be evaluated on how well it can reproduce or approximate the RoBERTa-generated sentiment labels using features that exist before sentiment is assigned, such as entity text, keyword text, article/source information, entity type, mentions, and date-related features.
+
+
+So yes, your evaluation would measure agreement with RoBERTa-generated pseudo-labels, not true sentiment accuracy. That is acceptable as long as you clearly explain this limitation. You may also use RoBERTa confidence as a way to filter or discuss label reliability, but I would avoid using confidence as a predictor of sentiment because that would create leakage.
+
+
+Best,
+
+Professor Hua
+
+10:04 AM
+
+Hi Professor,
+
+
+Okay - that is what I was suspecting about those roles That makes more sense, and thank you for explaining it.
+
+
+And on the project, this makes sense. I'll be sure to make the clarification that the target of this analysis is model generated data too. So for an actual real-world use case, without ground truths, could this data still be marketed? I probably can't tell potential clients whether the model is correct anymore, but instead will have to think about using the outcomes of the client utilizing the data as reference data for the model to train with.
+
+
+Thanks,
+
+Jeremy
+Andrew Hua
+
+12:36 PM
+
+Hi Jeremy,
+
+
+Yes, that is a reasonable way to think about it. Without ground-truth labels, the data could still potentially be marketed as model-generated sentiment intelligence, but not as verified sentiment truth.
+
+
+You would need to be transparent that the labels are generated by RoBERTa and should be treated as directional indicators rather than confirmed facts. In a real-world setting, client outcomes, user feedback, manual review, or business results could later become reference data to validate and improve the system.
+
+For the project, framing this as pseudo-labeled sentiment analysis with clear limitations is the right direction.
+
+
+Best,
+
+Professor Hua
+
+7:26 PM
+
+Hi Professor,
+
+
+Ok, that is very good to know. Thank you.
+
+
+A little bit off topic, but when writing in a notebook should comments written in markdown be primarily about the process itself or the visualization, and comments in code should be about what is happening the code cell? I know it's a bit nit picky but I am doing another side project that I'd like to remove all the code from to just explain some examples of the data and graphs.
+
+
+Then I was wondering if separating code comments and markdown for notebooks was a kind of standard?
+
+
+Thanks,
+
+Jeremy
+Andrew Hua
+
+10:38 PM
+
+Hi Jeremy,
+
+
+Good question. In general, yes—that is a good standard to follow.
+
+
+Markdown should explain the purpose, process, interpretation, and takeaway: what question you are answering, why the step matters, and what the reader should notice in the output or visualization.
+
+
+Code comments should explain what the code is doing, especially for data cleaning, feature engineering, filtering, modeling, or any step that may not be obvious.
+
+
+For course submissions, the goal is not to remove or hide the code, but to make the notebook readable by using markdown to tell the story and code comments to clarify the technical steps.
+
+
+Best,
+
+Professor Hua
+Wednesday
+
+9:58 AM
+
+Hi Professor,
+
+
+Thank you! This is the other side project I was working on since the beginning of last month. It is about analyzing the retention rates among Covid-19 vaccine manufacturers and between the stages themselves. A two way ANOVA is used because of the two populations we're comparing. Basically it is also an extension of a previous course's final project based on what I am learning in this course.
+
+
+https://github.com/jsbwxyz/Vaccine-Dropout-by-Manufacturer/blob/master/Vaccine_Dropout_by_Manufacturer.ipynb
+
+
+Interestingly enough, when I tried applying Random Forest to predict patient outcomes, because the source data was at population level and not patient level, there wouldn't have been enough usable features for a model to learn from to predict outcomes. This is visualized with a comparison between the flat random forest prediction side by side with linear regression.
+
+
+Therefore the analysis is more forecasting retention rates for future hypothetical therapy completion stages rather than predicting them. I saw a similarity between this issue and my project because this is just as important as clarifying that RoBERTa is predicting it's own generated labels rather than predicting actual sentiment labels. I think I am really enjoying this course.
+
+
+If you have the time, could you critique (or grade) this analysis? I am using this on my resume for a Data Scientist position, which happens to be at my previous employer's largest partner. They would like to to see that I understand how to use statistical methods to solve problems and pull insights.
+
+
+Thank you as always,
+
+Jeremy
+Andrew Hua
+
+4:25 PM
+
+Hi Jeremy,
+
+
+Thanks for clarifying. Before I look at it, I just want to check: is this analysis connected to your DSC 550 (final) project in any way?
+
+
+If it is related to the course (final) project, I’ll need to hold off on giving individualized feedback before submission so I can be fair and consistent with all students. If it is separate from the course project, I can provide a brief high-level review, but I would not treat it as a formal grade.
+
+
+Best,
+
+Professor Hua
+Thursday
+
+2:01 PM
+
+Hi Professor,
+
+
+This is not part of my final project. It is just one of the spotlight notebooks I am trying to show on my resume for potential employers as I was laid off two months ago. One of my friends is a scientist at Pfizer, a company in this analysis and she actually helped me figure out the two way ANOVA piece. It not only helped me find the significance between the different stages, but between the different manufacturers themselves.
+
+
+Thanks,
+
+Jeremy
+Andrew Hua
+
+6:12 PM
+
+Hi Jeremy,
+
+
+Thank you for clarifying. I’m sorry to hear about the layoff, and I think building polished spotlight notebooks for your resume is a smart use of your time.
+
+
+The two-way ANOVA sounds like a strong addition, especially if it helps compare both stages and manufacturers. For a portfolio notebook, I would make sure you clearly explain:
+
+
+* the research question,
+
+* why two-way ANOVA is appropriate,
+
+* the main effects and interaction effect,
+
+* assumptions checked,
+
+* and the practical interpretation of the results.
+
+
+It is also perfectly fine that your friend helped you think through the ANOVA approach, especially since this is outside the final project. Just make sure the final notebook reflects your own understanding and explanation.
+
+
+Best,
+
+Professor Hua
+
+8:57 PM
+
+Hi Professor,
+
+
+Thank you. Looking back it definitely could use a lot more explaining on why certain models are being used. I lean a little heavy on explaining the results.
+
+
+Looking at it now a lot could be elaborated on.
+
+
+Thank you for this feedback. I’m confident a position will come up soon — just need to “play the game” as they say.
+
+
+Thanks,
+
+Jeremy
+Andrew Hua
+
+10:21 PM
+
+You are very welcome.
+
+
+Prof. Hua
+Saturday
+
+7:30 PM
+
+Hi Professor,
+
+
+I was reading an article from IBM about data leakage. When it defines train-test contamination, where both training and validation data are used to create a model... doesn't the validation process come after the training step? How would validation data end up in the train set in the real world?
+
+
+I understand how target leakage would occur -- I made that mistake with the first iteration of my project by just inducing the whole dataset in the training data.
+
+
+Article: https://www.ibm.com/think/topics/data-leakage-machine-learning
+
+
+Hope your weekend has been well.
+
+
+Thanks,
+
+Jeremy
+Sunday
+Andrew Hua
+
+1:25 PM
+
+Hi Jeremy,
+
+
+You are thinking about it in the right way. Validation does come after training, but train-test contamination usually happens earlier, when information from the validation set is allowed into preprocessing or feature engineering.
+
+
+A common real-world example is fitting scaling, imputation, PCA, or feature selection on the full dataset before splitting. In that case, the training pipeline has indirectly used information from the validation data.
+
+
+This is a good area for independent study. As you read, keep tracing the pipeline step by step and ask yourself whether each step was fit only on the training data. That habit will help you catch leakage issues quickly.
+
+
+Best,
+
+Professor Hua
+Today
+
+9:28 AM
+
+Hi Professor,
+
+
+Thank you for your continued feedback on the assignments. It feels good to go back and change what I had gotten wrong or explained incorrectly - like trimming a hedge.
+
+
+What do you think I can change in my submissions that would help improve my grade going into the end of the semester?
+
+
+Is it mostly the little things like grammar/spelling and similar to when I was explaining PCA as "removing" features instead of saying they were projected onto a smaller set of data and retain 90% of the variance?
+
+
+Thank you,
+
+Jeremy
